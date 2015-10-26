@@ -53,7 +53,7 @@ print_r($result);
 #));
 
 # PHP version 3
-$result = $client->putObject([
+$result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
    'Key' => $uploadfile
@@ -70,7 +70,7 @@ $rds = new Aws\Rds\RdsClient([
 
 
 $result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'mp1-jrh',
+    'DBInstanceIdentifier' => 'mp1-rca',
     #'Filters' => [
     #    [
     #        'Name' => '<string>', // REQUIRED

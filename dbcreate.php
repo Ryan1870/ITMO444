@@ -3,9 +3,19 @@
 <?php
 //conection: 
 echo "Hello world"; 
-$link = mysqli_connect("itmo544jrhdb","controller","ilovebunnies","3306") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect("itmo544jrhdb","controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
 
 echo "Here is the result: " . $link;
+
+$result = $rds->describeDBInstances([
+    'DBInstanceIdentifier' => 'mp1-rca',
+   
+]);
+
+
+$endpoint = $result['DBInstances']['Endpoint']['Address']
+    echo "============\n". $endpoint . "================";^M
+
 
 
 $sql = "CREATE TABLE comments 
