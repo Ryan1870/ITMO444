@@ -3,7 +3,7 @@
 
 
 sudo apt-get update -y
-sudo apt-get install -y apache2 git php5 php5-curl mysql-client curl php-mysql
+sudo apt-get install -y apache2 git php5 php5-curl mysql-client curl php5-mysql
 
 git clone https://github.com/Ryan1870/ITMO444.git
 
