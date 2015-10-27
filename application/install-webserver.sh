@@ -11,12 +11,12 @@ mv ./ITMO444/index.html /var/www/html
 mv ./ITMO444/*php /var/www/html
 
 
-curl -sS https://getcomposer.org/installer | sudo php
+curl -sS https://getcomposer.org/installer | sudo php &> getcomp.txt
 
-sudo php composer.phar require aws/aws-sdk-php
+sudo php composer.phar require aws/aws-sdk-php &> comp.txt
 
-sudo mv vendor /var/www/html
-sudo php /var/www/html/setup.php
+sudo mv vendor /var/www/html &> mvVen.txt
+sudo php /var/www/html/setup.php &> /tmp/setupthing.txt
 echo "DOne!" > results.txt
 
 
