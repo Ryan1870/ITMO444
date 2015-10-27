@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
-    'region'  => 'us-east-1a'
+    'region'  => 'us-east-1'
 ]);
 $result = $rds->createDBInstance([
     'AllocatedStorage' => 10,
@@ -18,7 +18,7 @@ $result = $rds->createDBInstance([
     'DBName' => 'customerrecords',
     #'DBParameterGroupName' => '<string>',
     #'DBSecurityGroups' => ['<string>', ...],
-    #'DBSubnetGroupName' => '<string>',
+    'DBSubnetGroupName' => 'testdb',
     'Engine' => 'MySQL', // REQUIRED
     'EngineVersion' => '5.5.41',
     #'Iops' => <integer>,
