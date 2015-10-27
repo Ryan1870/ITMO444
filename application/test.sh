@@ -4,7 +4,7 @@
 declare -a instanceARR
 ./cleanup.sh
 
-mapfile -t instanceARR < <(aws ec2 run-instances --image-id ami-d05e75b8 --count $1 --instance-type t2.micro --key-name Mac --security-group-ids sg-f647b490 --subnet-id subnet-3d0b2816 --associate-public-ip-address --user-data file:///Users/ryananderson/Documents/git/ITMO444/application/install-webserver.sh  --output table | grep InstanceId | sed "s/|//g" | tr -d ' '| sed "s/InstanceId//g") 
+mapfile -t instanceARR < <(aws ec2 run-instances --image-id ami-d05e75b8 --count $1 --instance-type t2.micro --key-name Mac --security-group-ids sg-f647b490 --subnet-id subnet-3d0b2816 --associate-public-ip-address --user-data file:///Users/ryananderson/Documents/git/ITMO444/application/install-webserver.sh --iam-instance-profile Name=Itmo444-ip --output table | grep InstanceId | sed "s/|//g" | tr -d ' '| sed "s/InstanceId//g") 
 
 echo ${instanceARR[@]}
 echo "hello"
