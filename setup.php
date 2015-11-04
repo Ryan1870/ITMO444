@@ -44,7 +44,7 @@ $rds = new Aws\Rds\RdsClient([
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
    # 'VpcSecurityGroupIds' => ['<string>', ...],
-]);
+#]);
 #print "Create RDS DB results: \n";
 # print_r($rds);
 #$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-rca',
