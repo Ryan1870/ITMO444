@@ -3,6 +3,7 @@
 
 declare -a instanceARR
 ../application/cleanup.sh
+./launch-rds.sh 
 
 mapfile -t instanceARR < <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --key-name $6 --security-group-ids $4 --subnet-id $5 --associate-public-ip-address --user-data file:///Users/ryananderson/Documents/git/ITMO444/application/install-webserver.sh --iam-instance-profile Name=$7 --output table | grep InstanceId | sed "s/|//g" | tr -d ' '| sed "s/InstanceId//g") 
 
@@ -29,4 +30,3 @@ aws autoscaling create-launch-configuration --launch-configuration-name itmo444-
 
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name itmo-444-extended-auto-scaling-group-2 --launch-configuration-name itmo444-launch-config --load-balancer-names lb  --health-check-type ELB --min-size 3 --max-size 6 --desired-capacity 3 --default-cooldown 600 --health-check-grace-period 120 --vpc-zone-identifier $5
 
-./launch-rds.sh 
