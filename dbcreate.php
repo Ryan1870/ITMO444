@@ -1,9 +1,22 @@
 
 
 <?php
+equire 'vendor/autoload.php';
+$rds = new Aws\Rds\RdsClient([
+    'version' => 'latest',
+    'region'  => 'us-east-1'
+]);
+
+$result = $rds->describeDBInstances([
+    'DBInstanceIdentifier' => 'mp1-rca',
+]);
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+print "============\n". $endpoint . "================\n";
+$link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . mysqli_error($link)); 
+
 //conection: 
-echo "Hello world"; 
-$link = mysqli_connect("itmo544jrhdb","controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
+//echo "Hello world"; 
+//$link = mysqli_connect("itmo544jrhdb","controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
 
 echo "Here is the result: " . $link;
 
