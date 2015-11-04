@@ -17,6 +17,7 @@ sudo php composer.phar require aws/aws-sdk-php &> comp.txt
 
 sudo mv vendor /var/www/html &> mvVen.txt
 sudo php /var/www/html/setup.php &> /tmp/setupthing.txt
+sudo php /var/www/html/dbcreate.php &> /tmp/tablecre.txt
 
 echo "DOne!" > results.txt
 
