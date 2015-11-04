@@ -3,7 +3,7 @@
 
 mapfile -t dbInstanceARR < <(aws rds describe-db-instances --output json | grep "\"DBInstanceIdentifier" | sed "s/[\"\:\, ]//g" | sed "s/DBInstanceIdentifier//g" )
 
-echo "test"
+echo "in launch rds"
 
 if [ ${#dbInstanceARR[@]} -gt 0 ]
    then

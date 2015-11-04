@@ -55,7 +55,7 @@ $result = $rds->describeDBInstances([
 ]);
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================\n";
-$link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","mp1-rca") or die("Error " . mysqli_error($link)); 
 echo "Here is the result: " . $link;
 #$sql = "CREATE TABLE comments 
 #(

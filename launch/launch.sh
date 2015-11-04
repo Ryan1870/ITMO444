@@ -30,3 +30,4 @@ aws autoscaling create-launch-configuration --launch-configuration-name itmo444-
 
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name itmo-444-extended-auto-scaling-group-2 --launch-configuration-name itmo444-launch-config --load-balancer-names lb  --health-check-type ELB --min-size 3 --max-size 6 --desired-capacity 3 --default-cooldown 600 --health-check-grace-period 120 --vpc-zone-identifier $5
 
+
