@@ -16,7 +16,7 @@ $link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . my
 
 //conection: 
 //echo "Hello world"; 
-$link = mysqli_connect("controller","letmein888") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . mysqli_error($link)); 
 //echo "Here is the result: " . $link;
 
 
