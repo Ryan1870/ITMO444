@@ -98,9 +98,9 @@ if (mysqli_connect_errno()) {
 
 
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)"))) {
-    echo "Prepare failed: (" . $link->errno . ") " . $link->error;
-}
+if ($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)")) {
+    //echo "Prepare failed: (" . $link->errno . ") " . $link->error;
+
 
 $email = $_POST['useremail'];
 $phone = $_POST['phone'];
@@ -120,7 +120,7 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 
 /* explicit close recommended */
 $stmt->close();
-
+}
 $link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 
