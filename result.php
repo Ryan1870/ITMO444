@@ -128,6 +128,9 @@ if( $statement !== FALSE){
 	$statement->execute();
 }
 
+$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
+	$statement->execute();
+
 
 
 #$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
@@ -139,7 +142,7 @@ i#f (!$stmt->execute()) {
 #printf("%d Row inserted.\n", $statement->affected_rows);
 
 /* explicit close recommended */
-$statement->close();
+#$statement->close();
 
 #$link->real_query("SELECT * FROM comments");
 #$res = $link->use_result();
