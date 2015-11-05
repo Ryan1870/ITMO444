@@ -93,8 +93,21 @@ if (mysqli_connect_errno()) {
 #if ($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)")) {
  #   //echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 #}
+#ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+#PosterName VARCHAR(32),
+#Title VARCHAR(32),
+#Content VARCHAR(500),
+#uname VARCHAR(20),
+#email VARCHAR(20),
+#phone VARCHAR(20),
+#s3URL VARCHAR(256),
+#jpgfile VARCHAR(256),
+#state TINYINT(3),
+#date TIMESTAMP)";
 
-$statement = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)");
+
+
+$statement = $link->prepare("INSERT INTO comments ('ID', 'PosterName','Title','Content','uname','phone','s3URL','jpgfile','state','date') VALUES (NULL,?,?,?,?,?,?,?,?,NULL)");
 
 
 
@@ -111,7 +124,7 @@ $issubscribed=0;
 
 
 if( $statement !== FALSE){
-	$statement->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
+	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
 	$statement->execute();
 }
 
