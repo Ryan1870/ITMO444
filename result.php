@@ -83,8 +83,8 @@ $result = $rds->describeDBInstances([
 ]);
 
 
-#$endpoint = $result['DBInstances']['Endpoint']['Address']
- #   echo "============\n". $endpoint . "================";
+$endpoint = $result['DBInstances']['Endpoint']['Address']
+   echo "============\n". $endpoint . "================";
 
 //echo "begin database";^M
 $link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . mysqli_error($link));
