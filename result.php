@@ -76,7 +76,7 @@ $result = $rds->describeDBInstances([
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "============\n". $endpoint . "================\n";
+#print "============\n". $endpoint . "================\n";
 
 //echo "begin database";^M
 $link = mysqli_connect($endpoint,"controller","letmein888","db444Name") or die("Error " . mysqli_error($link));
@@ -113,13 +113,24 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 /* explicit close recommended */
 $stmt->close();
 }
-$link->real_query("SELECT * FROM comments");
-$res = $link->use_result();
+#$link->real_query("SELECT * FROM comments");
+#$res = $link->use_result();
+
+
+$query = "SELECT * FROM comments";
+if($res =$link->query($query))
+{
+	 printf("Select returned %d rows.\n", $res->num_rows);
+}
 
 echo "Result set order...\n";
-while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
-}
+
+
+
+#
+#while ($row = $res->fetch_assoc()) {
+ #   echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+#}
 
 
 $link->close();
