@@ -94,7 +94,7 @@ if (mysqli_connect_errno()) {
  #   //echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 #}
 
-$statement = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)"));
+$statement = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)");
 
 
 
@@ -123,10 +123,10 @@ i#f (!$stmt->execute()) {
   #  echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 
 #}
-printf("%d Row inserted.\n", $statement->affected_rows);
+#printf("%d Row inserted.\n", $statement->affected_rows);
 
 /* explicit close recommended */
-$stmt->close();
+$statement->close();
 
 #$link->real_query("SELECT * FROM comments");
 #$res = $link->use_result();
