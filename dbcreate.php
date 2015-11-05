@@ -16,9 +16,8 @@ $link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . my
 
 //conection: 
 //echo "Hello world"; 
-//$link = mysqli_connect("itmo544jrhdb","controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
-
-echo "Here is the result: " . $link;
+$link = mysqli_connect("controller","letmein888") or die("Error " . mysqli_error($link)); 
+//echo "Here is the result: " . $link;
 
 
 $sql = "CREATE TABLE comments 
@@ -35,7 +34,5 @@ jpgfile Varchar(256),
 state TineInt(3),
 date Timestamp
 )";
-
-$con->query($sql);
 
 ?>
