@@ -29,14 +29,13 @@ ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 PosterName VARCHAR(32),
 Title VARCHAR(32),
 Content VARCHAR(500),
-uname Varchar(20),
-email Varchar(20),
-phone Varchar(20),
-s3URL Varchar(256),
-jpgfile Varchar(256),
-state TineInt(3),
-date Timestamp
-)";
+uname VARCHAR(20),
+email VARCHAR(20),
+phone VARCHAR(20),
+s3URL VARCHAR(256),
+jpgfile VARCHAR(256),
+state TINYINT(3),
+date TIMESTAMP)";
 
 if (mysqli_query($link, $sql)){
     echo "Table persons created successfully";
