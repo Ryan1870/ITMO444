@@ -12,7 +12,7 @@ $result = $rds->describeDBInstances([
 ]);
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================\n";
-$link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein888","db444Name") or die("Error " . mysqli_error($link)); 
 
 if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());

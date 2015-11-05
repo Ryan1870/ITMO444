@@ -44,9 +44,9 @@ $rds = new Aws\Rds\RdsClient([
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
    # 'VpcSecurityGroupIds' => ['<string>', ...],
-]);
-print "Create RDS DB results: \n"
- print_r($rds);
+#]);
+#print "Create RDS DB results: \n"
+ #print_r($rds);
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-rca',
 ]);
 // Create a table 
@@ -56,7 +56,7 @@ $result = $rds->describeDBInstances([
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================\n";
 $link = mysqli_connect($endpoint,"controller","letmein888","db444Name") or die("Error " . mysqli_error($link)); 
-echo "Here is the result: " . $link;
+#echo "Here is the result: " . $link;
 $sql = "CREATE TABLE comments 
 (
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -71,7 +71,7 @@ jpgfile VARCHAR(256),
 state TINYINT(3),
 date TIMESTAMP
 
-#)";
+)";
 
 if (mysqli_query($link, $sql)){
     echo "Table persons created successfully";
