@@ -90,9 +90,14 @@ if (mysqli_connect_errno()) {
 
 
 /* Prepared statement, stage 1: prepare */
-if ($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)")) {
-    //echo "Prepare failed: (" . $link->errno . ") " . $link->error;
-}
+#if ($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)")) {
+ #   //echo "Prepare failed: (" . $link->errno . ") " . $link->error;
+#}
+
+$statement = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)"));
+
+
+
 
 $email = $_POST['useremail'];
 $phone = $_POST['phone'];
@@ -102,13 +107,23 @@ $s3finishedurl = "none";
 $status =0;
 $issubscribed=0;
 
-$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
 
-if (!$stmt->execute()) {
-    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 
+
+if( $statement !== FALSE){
+	$statement->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
+	$statement->execute();
 }
-printf("%d Row inserted.\n", $stmt->affected_rows);
+
+
+
+#$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
+
+i#f (!$stmt->execute()) {
+  #  echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+
+#}
+printf("%d Row inserted.\n", $statement->affected_rows);
 
 /* explicit close recommended */
 $stmt->close();
