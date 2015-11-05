@@ -18,7 +18,7 @@ if [ ${#dbInstanceARR[@]} -gt 0 ]
      
     else
      echo "in launch rds2"
-     aws rds create-db-instance --db-instance-identifier mp1-rca --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein888 --allocated-storage 5 --db-subnet-group-name testdb
+     aws rds create-db-instance --db-instance-identifier mp1-rca --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein888 --allocated-storage 5 --db-subnet-group-name testdb --db-name db444Name
       fi  
      done
 fi
@@ -26,6 +26,6 @@ fi
 if [ ${#dbInstanceARR[@]} == 0 ]
 then
 echo "in launch rds3"
- aws rds create-db-instance --db-instance-identifier mp1-rca --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein888 --allocated-storage 5 --db-subnet-group-name testdb	
+ aws rds create-db-instance --db-instance-identifier mp1-rca --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein888 --allocated-storage 5 --db-subnet-group-name testdb --db-name db444Name
 fi
 
