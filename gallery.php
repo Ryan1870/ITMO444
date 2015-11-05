@@ -11,20 +11,23 @@ require 'vendor/autoload.php';
 
 use Aws\Rds\RdsClient;
 $client = RdsClient::factory(array(
+'version' => 'latest',
 'region'  => 'us-east-1'
 ));
 
-$result = $client->describeDBInstances(array(
+#$result = $client->describeDBInstances(array(
+ #   'DBInstanceIdentifier' => 'mp1-rca',
+#));
+
+$result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mp1-rca',
-));
+    
+]);
 
-$endpoint = "";
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+print "============\n". $endpoint . "================\n";
 
-foreach ($result->getPath('DBInstances/*/Endpoint/Address') as $ep) {
-    // Do something with the message
-    echo "============". $ep . "================";
-    $endpoint = $ep;
-}   
+
 echo $endpoint;
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","db444Name") or die("Error " . mysqli_error($link));

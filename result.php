@@ -71,15 +71,7 @@ $rds = new Aws\Rds\RdsClient([
 
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'mp1-rca',
-    #'Filters' => [
-    #    [
-    #        'Name' => '<string>', // REQUIRED
-    #        'Values' => ['<string>', ...], // REQUIRED
-    #    ],
-        // ...
-   # ],
-   # 'Marker' => '<string>',
-   # 'MaxRecords' => <integer>,
+    
 ]);
 
 
