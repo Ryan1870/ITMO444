@@ -14,9 +14,12 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================\n";
 $link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . mysqli_error($link)); 
 
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
 //conection: 
 //echo "Hello world"; 
-$link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . mysqli_error($link)); 
+
 //echo "Here is the result: " . $link;
 
 
