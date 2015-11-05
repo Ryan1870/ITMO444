@@ -20,7 +20,7 @@ $link = mysqli_connect($endpoint,"controller","letmein888") or die("Error " . my
 //echo "Here is the result: " . $link;
 
 
-$sql = mysql_query("CREATE TABLE 'comments' 
+$sql = "CREATE TABLE 'comments' 
 (
 'ID' INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 'PosterName' VARCHAR(32),
@@ -35,4 +35,10 @@ $sql = mysql_query("CREATE TABLE 'comments'
 'date' Timestamp
 )";
 
+if (mysqli_query($link, $sql)){
+    echo "Table persons created successfully";
+} else {
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+mysqli_close($link);
 ?>
