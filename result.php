@@ -121,7 +121,7 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 /* explicit close recommended */
 $stmt->close();
 }
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM comments");
 $res = $link->use_result();
 
 echo "Result set order...\n";
