@@ -106,10 +106,10 @@ $stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$st
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-}
+
 
 printf("%d Row inserted.\n", $stmt->affected_rows);
-
+}
 /* explicit close recommended */
 $stmt->close();
 }
