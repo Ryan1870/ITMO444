@@ -37,7 +37,7 @@ $bucket = uniqid("php-rca-",false);
 #));
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
-    'ACL' => 'public-read',
+    'ACL' => 'public-read-write',
     'Bucket' => $bucket,
 ]);
 
