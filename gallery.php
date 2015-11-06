@@ -53,9 +53,67 @@ if($res =$link->query($query))
 
 //$link->real_query("SELECT * FROM items");
 #$res = $link->use_result();
+
+function imageCreateFromAny($filepath) { 
+    $type = exif_imagetype($filepath); // [] if you don't have exif you could use getImageSize() 
+    $allowedTypes = array( 
+        1,  // [] gif 
+        2,  // [] jpg 
+        3,  // [] png 
+        6   // [] bmp 
+    ); 
+    if (!in_array($type, $allowedTypes)) { 
+        return false; 
+    } 
+    switch ($type) { 
+        case 1 : 
+            $im = imageCreateFromGif($filepath); 
+        break; 
+        case 2 : 
+            $im = imageCreateFromJpeg($filepath); 
+        break; 
+        case 3 : 
+            $im = imageCreateFromPng($filepath); 
+        break; 
+        case 6 : 
+            $im = imageCreateFromBmp($filepath); 
+        break; 
+    }    
+    return $im;  
+} 
+
+function LoadJPEG ($imgURL) {
+
+    ##-- Get Image file from Port 80 --##
+    $fp = fopen($imgURL, "r");
+    $imageFile = fread ($fp, 3000000);
+    fclose($fp);
+
+    ##-- Create a temporary file on disk --##
+    $tmpfname = tempnam ("/temp", "IMG");
+
+    ##-- Put image data into the temp file --##
+    $fp = fopen($tmpfname, "w");
+    fwrite($fp, $imageFile);
+    fclose($fp);
+
+    ##-- Load Image from Disk with GD library --##
+    $im = imagecreatefromjpeg ($tmpfname);
+
+    ##-- Delete Temporary File --##
+    unlink($tmpfname);
+
+    ##-- Check for errors --##
+    if (!$im) {
+        print "Could not create JPEG image $imgURL";
+    }
+
+    return $im;
+}
+
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
+    echo "<img src =\" " . LoadJPEG($row['rs3URL']) . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
 echo $row['ID'] . "Email: " . $row['email'];
 echo $row['rs3URL'] . "f : " . $row['fs3URL'];
 }
