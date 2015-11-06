@@ -26,13 +26,11 @@ if($link === false){
 $sql = "CREATE TABLE comments
 (
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-PosterName VARCHAR(32),
-Title VARCHAR(32),
-Content VARCHAR(500),
 uname VARCHAR(20),
-email VARCHAR(20),
+email VARCHAR(32),
 phone VARCHAR(20),
-s3URL VARCHAR(256),
+rs3URL VARHCHAR(256),
+fs3URL VARCHAR(256),
 jpgfile VARCHAR(256),
 state TINYINT(3),
 date TIMESTAMP)";
