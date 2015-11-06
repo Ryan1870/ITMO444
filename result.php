@@ -161,10 +161,10 @@ echo "Result set order...\n";
 
 
 
-#
-#while ($row = $res->fetch_assoc()) {
- #   echo $row['id'] . " " . $row['email']. " " . $row['phone'];
-#}
+
+while ($row = $res->fetch_assoc()) {
+    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+}
 
 
 $link->close();
