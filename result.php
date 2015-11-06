@@ -163,7 +163,7 @@ echo "Result set order...\n";
 
 
 while ($row = $res->fetch_assoc()) {
-    echo $row['id'] . " " . $row['email']. " " . $row['phone'];
+    echo $row['ID'] . " " . $row['email']. " " . $row['phone'];
 }
 
 
