@@ -111,7 +111,7 @@ if (mysqli_connect_errno()) {
 
 
 
-
+$uname = $_POST['username'];
 $email = $_POST['useremail'];
 $phone = $_POST['phone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
@@ -121,7 +121,7 @@ $status =0;
 $issubscribed=0;
 
 
-mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES ('$email', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', $state)");
+mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,status,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', $state, NULL)");
 
 $results = $link->insert_id;
 echo $link->error;
