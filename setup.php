@@ -29,13 +29,11 @@ ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 uname VARCHAR(32),
 email VARCHAR(32),
 phone VARCHAR(32),
-rs3URL VARHCHAR(256),
+rs3URL VARCHAR(256),
 fs3URL VARCHAR(256),
 jpgfile VARCHAR(256),
 state TINYINT(3),
-date TIMESTAMP
-
-)";
+date TIMESTAMP)";
 
 if (mysqli_query($link, $sql)){
     echo "Table persons created successfully";
