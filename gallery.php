@@ -67,7 +67,7 @@ if($res =$link->query($query))
     #} 
     #switch ($type) { 
      #   case 1 : 
-            $im = imageCreateFromGif($filepath); 
+      #      $im = imageCreateFromGif($filepath); 
       #  break; 
        # case 2 : 
         #    $im = imageCreateFromJpeg($filepath); 
@@ -113,10 +113,28 @@ if($res =$link->query($query))
 
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
+#$img = imagecreatefrompng($row['rs3URL']);
+#imagepng($img);
+#$p = $row['rs3URL'];
+#echo "here here";
+#echo $p;
+#$a = file_get_contents("$p");
+#echo "aboutA ";
+#echo $a; 
+#$im = imagecreatefromjpeg("".$row['rs3URL']);
+#       $image = new Imagick();
+#       $f = fopen($row['rs3URL'], 'rb');
+#       $image->readImageFile($f);
 
-	$image = new Imagick();
-	$f = fopen('http://www.url.com/image.jpg', 'rb');
-	$image->readImageFile($f);
+#    echo '<img src=$a border=0>';
+#echo $row['ID'] . "Email: " . $row['email'];
+#echo $row['rs3URL'] . "f : " . $row['fs3URL'];
+
+
+
+	#$image = new Imagick();
+	#$f = fopen('http://www.url.com/image.jpg', 'rb');
+	#$image->readImageFile($f);
 	
     echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
 echo $row['ID'] . "Email: " . $row['email'];

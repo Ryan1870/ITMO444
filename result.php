@@ -13,7 +13,7 @@ $s3 = new Aws\S3\S3Client([
 ]);
 echo $_POST['useremail'];
 
-$uploaddir = '/tmp/';
+$uploaddir = '/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
 echo '<pre>';
