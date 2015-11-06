@@ -56,7 +56,8 @@ print_r($result);
 $result = $s3->putObject([
     'ACL' => 'bucket-owner-full-control',
     'Bucket' => $bucket,
-   'Key' => $uploadfile
+   'Key' => $uploadfile,
+   'SourceFile' => $uploadfile,
 ]);  
 
 
