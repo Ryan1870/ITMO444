@@ -38,8 +38,13 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-//below line is unsafe - $email is not checked for SQL injection -- don't do this in real life or use an ORM instead
-$link->real_query("SELECT * FROM comments WHERE email = '$email'");
+mysqli_query($link, "SELECT * FROM comments WHERE email = '$email'");
+
+$results = $link->insert_id;
+echo $link->error;
+echo $results;
+
+
 //$link->real_query("SELECT * FROM items");
 $res = $link->use_result();
 echo "Result set order...\n";
