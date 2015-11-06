@@ -44,7 +44,7 @@ $results = $link->insert_id;
 #echo $link->error;
 #echo $results;
 
-$query = "SELECT * FROM comments WHERE email = '$email'";
+$query = "SELECT * FROM comments";
 
 if($res =$link->query($query))
 {
@@ -136,7 +136,7 @@ while ($row = $res->fetch_assoc()) {
 	#$f = fopen('http://www.url.com/image.jpg', 'rb');
 	#$image->readImageFile($f);
 	printf("\n");
-	echo $row['email']
+	echo $row['email'];
 	echo '<img src="'.$row['rs3URL'].'" width="200" height="200" />';
 	printf("\n");
     #echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
