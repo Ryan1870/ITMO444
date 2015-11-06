@@ -13,7 +13,7 @@ $s3 = new Aws\S3\S3Client([
 ]);
 echo $_POST['useremail'];
 
-$uploaddir = '/';
+$uploaddir = '/tmp';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
 echo '<pre>';
@@ -54,7 +54,7 @@ print_r($result);
 
 # PHP version 3
 $result = $s3->putObject([
-    'ACL' => 'public-read',
+    'ACL' => 'public-read-write',
     'Bucket' => $bucket,
    'Key' => $uploadfile
 ]);  
