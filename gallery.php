@@ -6,7 +6,7 @@
 <?php
 session_start();
 $email = $_POST["email"];
-echo $email;
+#echo $email;
 require 'vendor/autoload.php';
 
 $rds = new Aws\Rds\RdsClient([
@@ -28,7 +28,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #print "============\n". $endpoint . "================\n";
 
 
-echo $endpoint;
+#echo $endpoint;
 //echo "begin database";
 $link = mysqli_connect($endpoint,"controller","letmein888","db444Name") or die("Error " . mysqli_error($link));
 
@@ -41,14 +41,14 @@ if (mysqli_connect_errno()) {
 mysqli_query($link, "SELECT * FROM comments WHERE email = '$email'");
 
 $results = $link->insert_id;
-echo $link->error;
-echo $results;
+#echo $link->error;
+#echo $results;
 
 $query = "SELECT * FROM comments WHERE email = '$email'";
 
 if($res =$link->query($query))
 {
-	 printf("Select returned %d rows.\n", $res->num_rows);
+	# printf("Select returned %d rows.\n", $res->num_rows);
 }
 
 //$link->real_query("SELECT * FROM items");
@@ -111,7 +111,7 @@ if($res =$link->query($query))
     #return $im;
 #}
 
-echo "Result set order...\n";
+#echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
 #$img = imagecreatefrompng($row['rs3URL']);
 #imagepng($img);
@@ -135,10 +135,13 @@ while ($row = $res->fetch_assoc()) {
 	#$image = new Imagick();
 	#$f = fopen('http://www.url.com/image.jpg', 'rb');
 	#$image->readImageFile($f);
-	
-    echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
-echo $row['ID'] . "Email: " . $row['email'];
-echo $row['rs3URL'] . "f : " . $row['fs3URL'];
+	printf("\n");
+	echo $row['email']
+	echo '<img src="'.$row['rs3URL'].'" width="200" height="200" />';
+	printf("\n");
+    #echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
+#echo $row['ID'] . "Email: " . $row['email'];
+#echo $row['rs3URL'] . "f : " . $row['fs3URL'];
 }
 $link->close();
 ?>
