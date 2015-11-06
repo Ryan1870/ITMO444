@@ -107,7 +107,7 @@ if (mysqli_connect_errno()) {
 
 
 
-$statement = $link->prepare("INSERT INTO comments ('ID', 'PosterName','Title','Content','uname','phone','s3URL','jpgfile','state','date') VALUES (NULL,?,?,?,?,?,?,?,?,NULL)");
+$statement = $link->prepare("INSERT INTO comments (ID, PosterName,Title,Content,uname,phone,s3URL,jpgfile,state,date) VALUES (NULL,?,?,?,?,?,?,?,?,NULL)");
 
 
 
@@ -135,7 +135,7 @@ $statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$
 
 #$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
 
-i#f (!$stmt->execute()) {
+#if (!$stmt->execute()) {
   #  echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 
 #}
