@@ -9,7 +9,7 @@ $email = $_POST["email"];
 echo $email;
 require 'vendor/autoload.php';
 
-$rds=  Aws\Rds\RdsClient([
+$rds = new Aws\Rds\RdsClient([
 
 'version' => 'latest',
 'region'  => 'us-east-1'
@@ -57,6 +57,7 @@ echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
     echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
 echo $row['ID'] . "Email: " . $row['email'];
+echo $row['rs3URL'] . "f : " . $row['fs3URL'];
 }
 $link->close();
 ?>
