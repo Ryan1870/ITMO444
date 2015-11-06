@@ -37,7 +37,7 @@ $bucket = uniqid("php-rca-",false);
 #));
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
-    'ACL' => 'bucket-owner-full-control',
+    'ACL' => 'public-read-write',
     'Bucket' => $bucket,
 ]);
 
@@ -54,7 +54,7 @@ print_r($result);
 
 # PHP version 3
 $result = $s3->putObject([
-    'ACL' => 'bucket-owner-full-control',
+    'ACL' => 'public-read-write',
     'Bucket' => $bucket,
    'Key' => $uploadfile,
    'SourceFile' => $uploadfile,
