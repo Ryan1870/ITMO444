@@ -9,11 +9,11 @@ $email = $_POST["email"];
 echo $email;
 require 'vendor/autoload.php';
 
-use Aws\Rds\RdsClient;
-$client = RdsClient::factory(array(
+$rds=  Aws\Rds\RdsClient([
+
 'version' => 'latest',
 'region'  => 'us-east-1'
-));
+]);
 
 #$result = $client->describeDBInstances(array(
  #   'DBInstanceIdentifier' => 'mp1-rca',
@@ -25,7 +25,7 @@ $result = $rds->describeDBInstances([
 ]);
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-print "============\n". $endpoint . "================\n";
+#print "============\n". $endpoint . "================\n";
 
 
 echo $endpoint;
@@ -44,13 +44,19 @@ $results = $link->insert_id;
 echo $link->error;
 echo $results;
 
+$query = "SELECT * FROM comments WHERE email = '$email'";
+
+if($res =$link->query($query))
+{
+	 printf("Select returned %d rows.\n", $res->num_rows);
+}
 
 //$link->real_query("SELECT * FROM items");
-$res = $link->use_result();
+#$res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['s3rawurl'] . "\" /><img src =\"" .$row['s3finishedurl'] . "\"/>";
-echo $row['id'] . "Email: " . $row['email'];
+    echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
+echo $row['ID'] . "Email: " . $row['email'];
 }
 $link->close();
 ?>
