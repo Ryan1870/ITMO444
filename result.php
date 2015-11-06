@@ -107,7 +107,7 @@ if (mysqli_connect_errno()) {
 
 
 
-$statement = $link->prepare("INSERT INTO comments (ID, PosterName,Title,Content,uname,phone,s3URL,jpgfile,state,date) VALUES (NULL,?,?,?,?,?,?,?,?,NULL)");
+#$statement = $link->prepare("INSERT INTO comments (ID, PosterName,Title,Content,uname,phone,s3URL,jpgfile,state,date) VALUES (NULL,?,?,?,?,?,?,?,?,NULL)");
 
 
 
@@ -121,15 +121,16 @@ $status =0;
 $issubscribed=0;
 
 
+mysqli_query($link, "INSERT INTO comments (ID, PosterName,Title,Content,uname,phone,s3URL,jpgfile,state,date) VALUES ('$email','$filename','$filename','$filename','$email','$phone','$s3rawurl','$uploadfile','$status')");
 
 
-if( $statement !== FALSE){
-	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
-	$statement->execute();
-}
+#if( $statement !== FALSE){
+#	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
+#	$statement->execute();
+#}
 
-$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
-	$statement->execute();
+#$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
+#	$statement->execute();
 
 
 
