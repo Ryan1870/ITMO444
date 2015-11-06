@@ -121,7 +121,7 @@ $status =0;
 $issubscribed=0;
 
 
-mysqli_query($link, "INSERT INTO comments (ID, PosterName,Title,Content,uname,email,phone,s3URL,jpgfile,state,date) VALUES ('$email','$filename','$filename','$email','$email','$phone','$s3rawurl','$uploadfile',$status)");
+mysqli_query($link, "INSERT INTO comments (ID, PosterName,Title,Content,uname,email,phone,s3URL,jpgfile,state,date) VALUES (NULL,'$email','$filename','$filename','$email','$email','$phone','$s3rawurl','$uploadfile',$status,NULL)");
 
 $results = $link->insert_id;
 echo $link->error;
