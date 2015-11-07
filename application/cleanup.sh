@@ -38,7 +38,7 @@ done
     #http://docs.aws.amazon.com/cli/latest/reference/rds/wait/db-instance-deleted.html
      # for (( i=0; i<${LENGTH}; i++));
       #do 
-      a#ws rds delete-db-instance --db-instance-identifier ${dbInstanceARR[i]} --skip-final-snapshot --output text
+      #Saws rds delete-db-instance --db-instance-identifier ${dbInstanceARR[i]} --skip-final-snapshot --output text
       #aws rds wait db-instance-deleted --db-instance-identifier ${dbInstanceARR[i]} --output text
       #sleep 1
    #done
