@@ -13,6 +13,17 @@ $s3 = new Aws\S3\S3Client([
 ]);
 echo $_POST['useremail'];
 
+$sn = new Aws\Sns\SnsClient([
+        'version' => 'latest',
+        'region' => 'us-east-1'
+]);
+
+$res2 = $sn->createTopic([
+        'Name' => 'testmp2',
+]);
+
+
+
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
