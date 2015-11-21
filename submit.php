@@ -12,7 +12,7 @@ $s3 = new Aws\S3\S3Client([
     'region'  => 'us-east-1'
 ]);
 echo $_POST['useremail'];
-
+$email = $_POST['useremail'];
 $sn = new Aws\Sns\SnsClient([
         'version' => 'latest',
         'region' => 'us-east-1'
@@ -24,12 +24,12 @@ $resARN = $sn->createTopic([
 
 $resSetTopicAttr = $client->setTopicAttributes([
     'AttributeName' => 'email', // REQUIRED
-    'AttributeValue' => '<mp2tester',
+    'AttributeValue' => 'mp2tester',
     'TopicArn' => '$resARN', // REQUIRED
 ]);
 
 $resultSub = $client->subscribe([
-    'Endpoint' => '$_POST['useremail']',
+    'Endpoint' => '$email',
     'Protocol' => 'email', // REQUIRED
     'TopicArn' => '$resARN', // REQUIRED
 ]);
@@ -136,7 +136,7 @@ if (mysqli_connect_errno()) {
 
 
 $uname = $_POST['username'];
-$email = $_POST['useremail'];
+#$email = $_POST['useremail'];
 $phone = $_POST['phone'];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
 $filename = basename($_FILES['userfile']['name']);
