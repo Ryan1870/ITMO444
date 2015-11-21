@@ -18,8 +18,20 @@ $sn = new Aws\Sns\SnsClient([
         'region' => 'us-east-1'
 ]);
 
-$res2 = $sn->createTopic([
+$resARN = $sn->createTopic([
         'Name' => 'testmp2',
+]);
+
+$resSetTopicAttr = $client->setTopicAttributes([
+    'AttributeName' => 'email', // REQUIRED
+    'AttributeValue' => '<mp2tester',
+    'TopicArn' => '$resARN', // REQUIRED
+]);
+
+$resultSub = $client->subscribe([
+    'Endpoint' => '$_POST['useremail']',
+    'Protocol' => 'email', // REQUIRED
+    'TopicArn' => '$resARN', // REQUIRED
 ]);
 
 
