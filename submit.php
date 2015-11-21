@@ -22,13 +22,25 @@ $resARN = $sn->createTopic([
         'Name' => 'testmp2',
 ]);
 
-$resSetTopicAttr = $client->setTopicAttributes([
+print("List All Platform Applications:\n");
+
+$Model1 = $sn->listPlatformApplications();
+
+foreach ($Model1['PlatformApplications'] as $App)
+  {
+    print($App['PlatformApplicationArn'] . "\n");
+  }
+  print("\n");
+  
+  $AppArn = $Model1['PlatformApplications'][0]['PlatformApplicationArn'];
+
+$resSetTopicAttr = $sn->setTopicAttributes([
     'AttributeName' => 'email', // REQUIRED
     'AttributeValue' => 'mp2tester',
     'TopicArn' => '$resARN', // REQUIRED
 ]);
 
-$resultSub = $client->subscribe([
+$resultSub = $sn->subscribe([
     'Endpoint' => '$email',
     'Protocol' => 'email', // REQUIRED
     'TopicArn' => '$resARN', // REQUIRED
