@@ -155,84 +155,39 @@ $filename = basename($_FILES['userfile']['name']);
 $s3finishedurl = "none";
 $status =0;
 $issubscribed=0;
-
-#$query = "SELECT COUNT(email)  FROM comments WHERE email = $email";
-
-$query = "SELECT COUNT(*)  FROM comments WHERE email = $email";
-
-ress = mysql_query($query,$link);
-echo $ress;
-print("resssssss " .$ress);
-$count = mysql_fetch_assoc($ress);
-echo $count;
-$t = intval($ress);
-print("t is : " .$t);
-
-if($t > 0)
-{
-	print("user in db");
-        exit();
-	#header('Location: gallery.php');  
-	#already in DB why another?
-}
-else 
-{
-	mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
-	#check send messege
-	
-}
-#mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
-
-##$results = $link->insert_id;
-##echo $link->error;
-##echo $results;
+mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+$results = $link->insert_id;
+echo $link->error;
+echo $results;
 #if( $statement !== FALSE){
 #	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
 #	$statement->execute();
 #}
-
 #$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
 #	$statement->execute();
-
-
-
 #$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
-
 #if (!$stmt->execute()) {
   #  echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-
 #}
 #printf("%d Row inserted.\n", $statement->affected_rows);
-
 /* explicit close recommended */
 #$statement->close();
-
 #$link->real_query("SELECT * FROM comments");
 #$res = $link->use_result();
-
-
-#$query = "SELECT * FROM comments";
-#if($res =$link->query($query))
-#{
-#	 printf("Select returned %d rows.\n", $res->num_rows);
-#}
-
-#echo "Result set order...\n";
-
-
-
-
-#while ($row = $res->fetch_assoc()) {
- #   echo $row['ID'] . " " . $row['email']. " " . $row['phone'];
-#}
-
-
+$query = "SELECT * FROM comments";
+if($res =$link->query($query))
+{
+	 printf("Select returned %d rows.\n", $res->num_rows);
+}
+echo "Result set order...\n";
+while ($row = $res->fetch_assoc()) {
+    echo $row['ID'] . " " . $row['email']. " " . $row['phone'];
+}
 $link->close();
-
 //add code to detect if subscribed to SNS topic 
 //if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
-
 // add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
 //  Add code to update database to UPDATE status column to 1 (in progress)
-#header('Location: gallery.php');    
+header('Location: gallery.php');    
+?>
 ?>
