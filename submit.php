@@ -24,26 +24,26 @@ $resARN = $sn->createTopic([
 
 print("List All Platform Applications:\n");
 
-$Model1 = $sn->listPlatformApplications();
+$Model1 = $sn->listTopics();
 
 foreach ($Model1['PlatformApplications'] as $App)
   {
-    print($App['PlatformApplicationArn'] . "\n");
+    print($App['TopicArb'] . "\n");
   }
   print("\n");
   
-  $AppArn = $Model1['PlatformApplications'][0]['PlatformApplicationArn'];
+  $AppArn = $Model1['Topics'][0]['TopicArn'];
 
 $resSetTopicAttr = $sn->setTopicAttributes([
-    'AttributeName' => 'email', // REQUIRED
+    'AttributeName' => 'DisplayName', // REQUIRED
     'AttributeValue' => 'mp2tester',
-    'TopicArn' => '$resARN', // REQUIRED
+    'TopicArn' => $AppArn, // REQUIRED
 ]);
 
 $resultSub = $sn->subscribe([
-    'Endpoint' => '$email',
+    'Endpoint' => $email,
     'Protocol' => 'email', // REQUIRED
-    'TopicArn' => '$resARN', // REQUIRED
+    'TopicArn' => $AppArn, // REQUIRED
 ]);
 
 
@@ -156,8 +156,19 @@ $s3finishedurl = "none";
 $status =0;
 $issubscribed=0;
 
-
-mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+$query = "SELECT COUNT(email)  FROM comments WHERE email = $email";
+if($query => 1)
+{
+	header('Location: gallery.php');  
+	#already in DB why another?
+}
+else 
+{
+	mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+	#check send messege
+	
+}
+#mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
 
 $results = $link->insert_id;
 echo $link->error;
@@ -187,20 +198,20 @@ echo $results;
 #$res = $link->use_result();
 
 
-$query = "SELECT * FROM comments";
-if($res =$link->query($query))
-{
-	 printf("Select returned %d rows.\n", $res->num_rows);
-}
+#$query = "SELECT * FROM comments";
+#if($res =$link->query($query))
+#{
+#	 printf("Select returned %d rows.\n", $res->num_rows);
+#}
 
-echo "Result set order...\n";
-
-
+#echo "Result set order...\n";
 
 
-while ($row = $res->fetch_assoc()) {
-    echo $row['ID'] . " " . $row['email']. " " . $row['phone'];
-}
+
+
+#while ($row = $res->fetch_assoc()) {
+ #   echo $row['ID'] . " " . $row['email']. " " . $row['phone'];
+#}
 
 
 $link->close();
