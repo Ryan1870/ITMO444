@@ -156,18 +156,23 @@ $s3finishedurl = "none";
 $status =0;
 $issubscribed=0;
 
-$query = "SELECT COUNT(email)  FROM comments WHERE email = $email";
+#$query = "SELECT COUNT(email)  FROM comments WHERE email = $email";
 
 $query = "SELECT COUNT(*)  FROM comments WHERE email = $email";
 
-$link->mysqli_query($query);
-echo $link->mysqli_query($query);
-$ress = $link->use_result();
+ress = mysql_query($query,$link);
+echo $ress;
+print("resssssss " .$ress);
+$count = mysql_fetch_assoc($ress);
+echo $count;
 $t = intval($ress);
+print("t is : " .$t);
 
-if($t >= 0)
+if($t > 0)
 {
-	header('Location: gallery.php');  
+	print("user in db");
+        exit();
+	#header('Location: gallery.php');  
 	#already in DB why another?
 }
 else 
@@ -178,9 +183,9 @@ else
 }
 #mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
 
-$results = $link->insert_id;
-echo $link->error;
-echo $results;
+##$results = $link->insert_id;
+##echo $link->error;
+##echo $results;
 #if( $statement !== FALSE){
 #	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
 #	$statement->execute();
