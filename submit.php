@@ -26,9 +26,9 @@ print("List All Platform Applications:\n");
 
 $Model1 = $sn->listTopics();
 
-foreach ($Model1['PlatformApplications'] as $App)
+foreach ($Model1['Topics'] as $App)
   {
-    print($App['TopicArb'] . "\n");
+    print($App['TopicArn'] . "\n");
   }
   print("\n");
   
@@ -157,7 +157,15 @@ $status =0;
 $issubscribed=0;
 
 $query = "SELECT COUNT(email)  FROM comments WHERE email = $email";
-if($query => 1)
+
+$query = "SELECT COUNT(*)  FROM comments WHERE email = $email";
+
+$link->mysqli_query($query);
+echo $link->mysqli_query($query);
+$ress = $link->use_result();
+$t = intval($ress);
+
+if($t >= 0)
 {
 	header('Location: gallery.php');  
 	#already in DB why another?
@@ -221,5 +229,5 @@ $link->close();
 
 // add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
 //  Add code to update database to UPDATE status column to 1 (in progress)
-header('Location: gallery.php');    
+#header('Location: gallery.php');    
 ?>
