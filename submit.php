@@ -40,11 +40,11 @@ $resSetTopicAttr = $sn->setTopicAttributes([
     'TopicArn' => $AppArn, // REQUIRED
 ]);
 
-$resultSub = $sn->subscribe([
-    'Endpoint' => $email,
-    'Protocol' => 'email', // REQUIRED
-    'TopicArn' => $AppArn, // REQUIRED
-]);
+#$resultSub = $sn->subscribe([
+  #  'Endpoint' => $email,
+ #   'Protocol' => 'email', // REQUIRED
+ #   'TopicArn' => $AppArn, // REQUIRED
+#]);
 
 
 
@@ -123,7 +123,63 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+######
 
+mysqli_query($link, "SELECT Count(*) FROM comments WHERE email = '$email'");
+
+$results = $link->insert_id;
+#echo $link->error;
+#echo $results;
+
+$query = "SELECT * FROM comments WHERE email = '$email'";
+
+$res =$link->query($query);
+
+
+if($res > 1){
+##already in db assumed sub
+
+$uname = $_POST['username'];
+#$email = $_POST['useremail'];
+$phone = $_POST['phone'];
+$s3rawurl = $url; //  $result['ObjectURL']; from above
+$filename = basename($_FILES['userfile']['name']);
+$s3finishedurl = "none";
+$status =0;
+$issubscribed=0;
+mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+$results = $link->insert_id;
+echo $link->error;
+echo $results;
+
+}else{
+#not in db add and send sns
+
+$resultSub = $sn->subscribe([
+    'Endpoint' => $email,
+    'Protocol' => 'email', // REQUIRED
+    'TopicArn' => $AppArn, // REQUIRED
+]);
+
+$uname = $_POST['username'];
+#$email = $_POST['useremail'];
+$phone = $_POST['phone'];
+$s3rawurl = $url; //  $result['ObjectURL']; from above
+$filename = basename($_FILES['userfile']['name']);
+$s3finishedurl = "none";
+$status =0;
+$issubscribed=0;
+mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+$results = $link->insert_id;
+echo $link->error;
+echo $results;
+#not in db add and send sns
+}
+
+
+
+
+######
 
 /* Prepared statement, stage 1: prepare */
 #if ($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)")) {
@@ -147,18 +203,18 @@ if (mysqli_connect_errno()) {
 
 
 
-$uname = $_POST['username'];
+#$uname = $_POST['username'];
 #$email = $_POST['useremail'];
-$phone = $_POST['phone'];
-$s3rawurl = $url; //  $result['ObjectURL']; from above
-$filename = basename($_FILES['userfile']['name']);
-$s3finishedurl = "none";
-$status =0;
-$issubscribed=0;
-mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
-$results = $link->insert_id;
-echo $link->error;
-echo $results;
+#$phone = $_POST['phone'];
+#$s3rawurl = $url; //  $result['ObjectURL']; from above
+#$filename = basename($_FILES['userfile']['name']);
+#$s3finishedurl = "none";
+#$status =0;
+#$issubscribed=0;
+#mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+#$results = $link->insert_id;
+#echo $link->error;
+#echo $results;
 #if( $statement !== FALSE){
 #	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
 #	$statement->execute();
