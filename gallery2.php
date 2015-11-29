@@ -1,5 +1,6 @@
 <html>
 <head><title>Gallery</title>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
 <body>
 

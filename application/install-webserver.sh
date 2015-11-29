@@ -4,6 +4,7 @@
 
 sudo apt-get update -y
 sudo apt-get install -y apache2 git php5 php5-curl mysql-client curl php5-mysql
+
 git clone https://github.com/Ryan1870/ITMO444.git
 
 mv ./ITMO444/images /var/www/html/images
@@ -19,6 +20,7 @@ sudo mv vendor /var/www/html &> mvVen.txt
 sudo php /var/www/html/setup.php &> /tmp/setupthing.txt
 sudo chmod 600 /var/www/html/setup.php
 #sudo php /var/www/html/dbcreate.php &> /tmp/tablecre.txt
+sudo apt-get install php5 php5-imagick
 
 echo "DOne!" > results.txt
 
