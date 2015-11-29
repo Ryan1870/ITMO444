@@ -161,13 +161,7 @@ $resultsubArns = $sn->listSubscriptionsByTopic([
 print $resultsubArns;
 
 $resulstPub = $sn->publish([
-'Messeage' => 'An image has been posted to the gallery',
-'MessageAttributes' =>  [
-	'<String>' => [
-		'DataType' => 'text',
-		],
-		],
-'TargetArn' => '',
+'Message' => 'An image has been posted to the gallery',
 'TopicArn' => $AppArn,
 ]);
 
@@ -196,16 +190,10 @@ $resultsubArns = $sn->listSubscriptionsByTopic([
 'TopicArn' => $AppArn,
 ]);
 
-print $resultsubArns;
+#print $resultsubArns;
 
 $resulstPub = $sn->publish([
-'Messeage' => 'An image has been posted to the gallery',
-'MessageAttributes' =>  [
-	'<String>' => [
-		'DataType' => 'text',
-		],
-		],
-'TargetArn' => '',
+'Message' => 'An image has been posted to the gallery',
 'TopicArn' => $AppArn,
 ]);
 
