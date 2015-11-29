@@ -21,6 +21,7 @@ sudo php /var/www/html/setup.php &> /tmp/setupthing.txt
 sudo chmod 600 /var/www/html/setup.php
 #sudo php /var/www/html/dbcreate.php &> /tmp/tablecre.txt
 sudo apt-get install php5 php5-imagick
+sudo aptitude install php5-imagick
 
 echo "DOne!" > results.txt
 
