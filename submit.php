@@ -135,9 +135,9 @@ $query = "SELECT Count(*) FROM comments WHERE email = '$email'";
 
 $res =$link->query($query);
 $num_rows = mysqli_fetch_row($res);
-print "count is " .$num_rows[0]. "hi"; 
+#print "count is " .$num_rows[0]. "hi"; 
 
-if($num_rows[0] > 1){
+if($num_rows[0] > 0){
 ##already in db assumed sub
 
 $uname = $_POST['username'];
