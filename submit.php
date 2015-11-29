@@ -131,12 +131,13 @@ $results = $link->insert_id;
 #echo $link->error;
 #echo $results;
 
-$query = "SELECT * FROM comments WHERE email = '$email'";
+$query = "SELECT Count(*) FROM comments WHERE email = '$email'";
 
 $res =$link->query($query);
+$num_rows = mysqli_fetch_row($res);
+print "count is " .$num_rows[0]. "hi"; 
 
-
-if($res > 1){
+if($num_rows[0] > 1){
 ##already in db assumed sub
 
 $uname = $_POST['username'];
