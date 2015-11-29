@@ -51,6 +51,8 @@ $resSetTopicAttr = $sn->setTopicAttributes([
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
+$tres = thumb_create($_FILES['userfile']['name'],50,50);
+
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
     echo "File is valid, and was successfully uploaded.\n";
@@ -95,6 +97,16 @@ $result = $s3->putObject([
    'SourceFile' => $uploadfile,
 ]);  
 
+#processed thumbnail
+
+$cthumb = $s3->putObject([
+	'ACL' => 'public-read-write',
+	'Bucket' => $bucket,
+    'Key' => $tres,
+    'SourceFile' => $tres,
+
+]);
+
 
 $url = $result['ObjectURL'];
 echo $url;
@@ -138,70 +150,70 @@ $num_rows = mysqli_fetch_row($res);
 #print "count is " .$num_rows[0]. "hi"; 
 
 if($num_rows[0] > 0){
-##already in db assumed sub
+	##already in db assumed sub
 
-$uname = $_POST['username'];
-#$email = $_POST['useremail'];
-$phone = $_POST['phone'];
-$s3rawurl = $url; //  $result['ObjectURL']; from above
-$filename = basename($_FILES['userfile']['name']);
-$s3finishedurl = "none";
-$status =0;
-$issubscribed=0;
-mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
-$results = $link->insert_id;
-##echo $link->error;
+	$uname = $_POST['username'];
+	#$email = $_POST['useremail'];
+	$phone = $_POST['phone'];
+	$s3rawurl = $url; //  $result['ObjectURL']; from above
+	$filename = basename($_FILES['userfile']['name']);
+	$s3finishedurl = "none";
+	$status =0;
+	$issubscribed=0;
+	mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+	$results = $link->insert_id;
+	##echo $link->error;
 ##echo $results;
 
 
-$resultsubArns = $sn->listSubscriptionsByTopic([
-'TopicArn' => $AppArn,
-]);
+	$resultsubArns = $sn->listSubscriptionsByTopic([
+		'TopicArn' => $AppArn,
+	]);
 
-print $resultsubArns;
+	print $resultsubArns;
 
-$resulstPub = $sn->publish([
-'Message' => 'An image has been posted to the gallery',
-'TopicArn' => $AppArn,
-]);
+	$resulstPub = $sn->publish([
+		'Message' => 'An image has been posted to the gallery',
+		'TopicArn' => $AppArn,
+		]);
 
 }else{
-#not in db add and send sns
+	#not in db add and send sns
 
-$resultSub = $sn->subscribe([
-    'Endpoint' => $email,
-    'Protocol' => 'email', // REQUIRED
-    'TopicArn' => $AppArn, // REQUIRED
-]);
+	$resultSub = $sn->subscribe([
+   	 'Endpoint' => $email,
+   	 'Protocol' => 'email', // REQUIRED
+   	 'TopicArn' => $AppArn, // REQUIRED
+	]);
 
-$uname = $_POST['username'];
-#$email = $_POST['useremail'];
-$phone = $_POST['phone'];
-$s3rawurl = $url; //  $result['ObjectURL']; from above
-$filename = basename($_FILES['userfile']['name']);
-$s3finishedurl = "none";
-$status =0;
-$issubscribed=0;
-mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
-$results = $link->insert_id;
-
-
-$resultsubArns = $sn->listSubscriptionsByTopic([
-'TopicArn' => $AppArn,
-]);
-
-#print $resultsubArns;
-
-$resulstPub = $sn->publish([
-'Message' => 'An image has been posted to the gallery',
-'TopicArn' => $AppArn,
-]);
+	$uname = $_POST['username'];
+	#$email = $_POST['useremail'];
+	$phone = $_POST['phone'];
+	$s3rawurl = $url; //  $result['ObjectURL']; from above
+	$filename = basename($_FILES['userfile']['name']);
+	$s3finishedurl = "none";
+	$status =0;
+	$issubscribed=0;
+	mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
+	$results = $link->insert_id;
 
 
+	$resultsubArns = $sn->listSubscriptionsByTopic([
+	'TopicArn' => $AppArn,
+	]);
 
-##echo $link->error;
-##echo $results;
-#not in db add and send sns
+	#print $resultsubArns;
+
+	$resulstPub = $sn->publish([
+	'Message' => 'An image has been posted to the gallery',
+	'TopicArn' => $AppArn,
+	]);
+
+
+
+	##echo $link->error;
+	##echo $results;
+	#not in db add and send sns
 }
 
 
@@ -271,5 +283,41 @@ $resulstPub = $sn->publish([
 //if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
 // add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
 //  Add code to update database to UPDATE status column to 1 (in progress)
-header('Location: gallery.php');    
+	header('Location: gallery.php'); 
+
+//Dynamically resize images
+function thumb_create($file, $width , $height ) {
+	try
+	{
+	        /*** the image file ***/
+	        $image = $file;
+	
+	        /*** a new imagick object ***/
+	        $im = new Imagick();
+	
+	        /*** ping the image ***/
+	        $im->pingImage($image);
+	
+	        /*** read the image into the object ***/
+	        $im->readImage( $image );
+	
+	        /*** thumbnail the image ***/
+	        $im->thumbnailImage( $width, $height );
+	
+	        /*** Write the thumbnail to disk ***/
+	        $im->writeImage( 'THUMB_'.$file );
+	
+	        /*** Free resources associated with the Imagick object ***/
+	        $im->destroy();
+	        return 'THUMB_'.$file;
+	        
+	}
+	catch(Exception $e)
+	{
+	        print $e->getMessage();
+	        return $file;
+	}
+};
+
+   
 ?>
