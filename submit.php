@@ -150,8 +150,26 @@ $status =0;
 $issubscribed=0;
 mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
 $results = $link->insert_id;
-echo $link->error;
-echo $results;
+##echo $link->error;
+##echo $results;
+
+
+$resultsubArns = $sn->listSubscriptionsByTopic([
+'TopicArn' => $AppArn,
+]);
+
+print $resultsubArns;
+
+$resulstPub = $sn->publish([
+'Messeage' => 'An image has been posted to the gallery',
+'MessageAttributes' =>  [
+	'<String>' => [
+		'DataType' => 'text',
+		],
+		],
+'TargetArn' => '',
+'TopicArn' => $AppArn,
+]);
 
 }else{
 #not in db add and send sns
@@ -172,8 +190,29 @@ $status =0;
 $issubscribed=0;
 mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
 $results = $link->insert_id;
-echo $link->error;
-echo $results;
+
+
+$resultsubArns = $sn->listSubscriptionsByTopic([
+'TopicArn' => $AppArn,
+]);
+
+print $resultsubArns;
+
+$resulstPub = $sn->publish([
+'Messeage' => 'An image has been posted to the gallery',
+'MessageAttributes' =>  [
+	'<String>' => [
+		'DataType' => 'text',
+		],
+		],
+'TargetArn' => '',
+'TopicArn' => $AppArn,
+]);
+
+
+
+##echo $link->error;
+##echo $results;
 #not in db add and send sns
 }
 
