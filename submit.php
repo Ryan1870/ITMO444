@@ -115,7 +115,7 @@ $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #print "============\n". $endpoint . "================\n";
 
 //echo "begin database";^M
-$link = mysqli_connect($endpoint,"controller","letmein888","mp1-rca") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein888","db444Name") or die("Error " . mysqli_error($link));
 
 
 /* check connection */
