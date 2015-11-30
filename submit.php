@@ -51,7 +51,8 @@ $resSetTopicAttr = $sn->setTopicAttributes([
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
-$tres = thumb_create($uploadfile,50,50);
+
+
 
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
@@ -97,7 +98,15 @@ $result = $s3->putObject([
    'SourceFile' => $uploadfile,
 ]);  
 
+#$uploaddirT = '/tmp/T';
+#$uploadfileT = $uploaddir . basename($_FILES['userfile']['name']);
+#$finurl = $cthumb['ObjectURL'];
+echo 'finurl'.$finurl;
 #processed thumbnail
+$tres = thumb_create( basename($_FILES['userfile']['name'],50,50);
+
+
+
 
 $cthumb = $s3->putObject([
 	'ACL' => 'public-read-write',
@@ -107,11 +116,11 @@ $cthumb = $s3->putObject([
 
 ]);
 
-
 $url = $result['ObjectURL'];
 echo $url;
 
 $finurl = $cthumb['ObjectURL'];
+echo $finurl;
 
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
@@ -307,7 +316,7 @@ function thumb_create($file, $width , $height ) {
 	        $im->thumbnailImage( $width, $height );
 	
 	        /*** Write the thumbnail to disk ***/
-	        $im->writeImage( 'THUMB_'.$file );
+	        $im->writeImage( $file );
 	
 	        /*** Free resources associated with the Imagick object ***/
 	        $im->destroy();

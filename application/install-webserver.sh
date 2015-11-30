@@ -23,6 +23,7 @@ sudo mv vendor /var/www/html &> mvVen.txt
 sudo php /var/www/html/setup.php &> /tmp/setupthing.txt
 sudo chmod 600 /var/www/html/setup.php
 #sudo php /var/www/html/dbcreate.php &> /tmp/tablecre.txt
+sudo service apache2 restart
 
 echo "DOne!" > results.txt
 
