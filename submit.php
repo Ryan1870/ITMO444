@@ -98,12 +98,18 @@ $result = $s3->putObject([
    'SourceFile' => $uploadfile,
 ]);  
 
-#$uploaddirT = '/tmp/T';
-#$uploadfileT = $uploaddir . basename($_FILES['userfile']['name']);
+$uploaddirT = '/tmp/';
+$uploadfileT = $uploaddirT . basename($_FILES['userfile']['name'].'thumb');
+if (move_uploaded_file($_FILES['userfile']['tmp_name'].'thumb', $uploadfileT)) {
+    echo "File is valid, and was successfully modified.\n";
+} else {
+    echo "did not modify!\n";
+}
+
 #$finurl = $cthumb['ObjectURL'];
 echo 'finurl'.$finurl;
 #processed thumbnail
-$tres = thumb_create( $_FILES['userfile']['name'],50,50));
+$tres = thumb_create( $_FILES['userfile']['name'].'thumb',50,50);
 print 'tress'.$tres;
 
 
