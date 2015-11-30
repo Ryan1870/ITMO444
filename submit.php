@@ -98,33 +98,43 @@ $result = $s3->putObject([
    'SourceFile' => $uploadfile,
 ]);  
 
-$image = new Imagick(basename($_FILES['userfile']['name']);
-$image->thumbnailImage(100,0);
-echo $image;
+#$image = new Imagick(basename($_FILES['userfile']['name']));
+#$image->thumbnailImage(100,0);
+#echo $image;
 
 #$finurl = $cthumb['ObjectURL'];
-echo 'finurl'.$finurl;
+#echo 'finurl'.$finurl;
 #processed thumbnail
+
+
+
 
 $uploaddirT = '/tmp/';
 $uploadfileT = $uploaddirT . basename($_FILES['userfile']['name']);
 
-
-
-
-echo '<pre>';
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfileT)) {
-    echo "File is valid,dfgh\n";
-} else {
-    echo "Pggggggg\n";
+$file = $uploadfile;
+$newfile = '/tmp/Thumb.png';
+if(!copy($file, $newfile)){
+        echo "falled to copy";
 }
+
+$image = new Imagick($newfile);
+$image->thumbnailImage(50, 0);
+$image->writeImage($newfile);
+#$file2 = $image;
+
+
+
+echo $uploadfileT;
+echo $_FILES['userfile']['tmp_name'];
+
 
 
 $cthumb = $s3->putObject([
 	'ACL' => 'public-read-write',
 	'Bucket' => $bucket,
-    'Key' => $uploadfileT,
-    'SourceFile' => $uploadfileT,
+    'Key' => $newfile,
+    'SourceFile' => $newfile,
 
 ]);
 
@@ -306,7 +316,7 @@ if($num_rows[0] > 0){
 //if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
 // add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
 //  Add code to update database to UPDATE status column to 1 (in progress)
-	header('Location: gallery.php'); 
+	#header('Location: gallery.php'); 
 
 //Dynamically resize images
 function thumb_create($file, $width , $height ) {
