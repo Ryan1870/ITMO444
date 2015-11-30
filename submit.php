@@ -103,8 +103,8 @@ $result = $s3->putObject([
 #$finurl = $cthumb['ObjectURL'];
 echo 'finurl'.$finurl;
 #processed thumbnail
-$tres = thumb_create( basename($_FILES['userfile']['name'],50,50);
-
+$tres = thumb_create( $_FILES['userfile']['name'],50,50));
+print 'tress'.$tres;
 
 
 
@@ -302,25 +302,31 @@ function thumb_create($file, $width , $height ) {
 	{
 	        /*** the image file ***/
 	        $image = $file;
+	        echo 'here1';
 	
 	        /*** a new imagick object ***/
 	        $im = new Imagick();
 	
 	        /*** ping the image ***/
 	        $im->pingImage($image);
+	        echo 'here2';
 	
 	        /*** read the image into the object ***/
 	        $im->readImage( $image );
+	        echo 'here3';
 	
 	        /*** thumbnail the image ***/
 	        $im->thumbnailImage( $width, $height );
+	        echo 'here4';
 	
 	        /*** Write the thumbnail to disk ***/
 	        $im->writeImage( $file );
+	        echo 'here5';
 	
 	        /*** Free resources associated with the Imagick object ***/
 	        $im->destroy();
 	        return 'THUMB_'.$file;
+	        echo 'here6';
 	        
 	}
 	catch(Exception $e)
