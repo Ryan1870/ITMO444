@@ -51,7 +51,7 @@ $resSetTopicAttr = $sn->setTopicAttributes([
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
-$tres = thumb_create($_FILES['userfile']['name'],50,50);
+$tres = thumb_create($uploadfile,50,50);
 
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
@@ -111,6 +111,8 @@ $cthumb = $s3->putObject([
 $url = $result['ObjectURL'];
 echo $url;
 
+$finurl = $cthumb['ObjectURL'];
+
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -157,7 +159,7 @@ if($num_rows[0] > 0){
 	$phone = $_POST['phone'];
 	$s3rawurl = $url; //  $result['ObjectURL']; from above
 	$filename = basename($_FILES['userfile']['name']);
-	$s3finishedurl = "none";
+	$s3finishedurl = $finurl;
 	$status =0;
 	$issubscribed=0;
 	mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
@@ -191,7 +193,7 @@ if($num_rows[0] > 0){
 	$phone = $_POST['phone'];
 	$s3rawurl = $url; //  $result['ObjectURL']; from above
 	$filename = basename($_FILES['userfile']['name']);
-	$s3finishedurl = "none";
+	$s3finishedurl = $finurl;
 	$status =0;
 	$issubscribed=0;
 	mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");

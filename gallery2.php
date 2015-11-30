@@ -138,9 +138,10 @@ while ($row = $res->fetch_assoc()) {
 	#$image->readImageFile($f);
 	printf("\n");
 	echo $row['email'];
-	echo '<img src="'.$row['rs3URL'].'" width="200" height="200" />';
+	#echo '<img src="'.$row['rs3URL'].'" width="200" height="200" />';
+	#echo '<img src="'.$row['fs3URL']/>';
 	printf("\n");
-    #echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
+    echo "<img src =\" " . $row['rs3URL'] . "\" /><img src =\"" .$row['fs3URL'] . "\"/>";
 #echo $row['ID'] . "Email: " . $row['email'];
 #echo $row['rs3URL'] . "f : " . $row['fs3URL'];
 }
