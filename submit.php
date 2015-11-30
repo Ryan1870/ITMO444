@@ -98,27 +98,33 @@ $result = $s3->putObject([
    'SourceFile' => $uploadfile,
 ]);  
 
-$uploaddirT = '/tmp/';
-$uploadfileT = $uploaddirT . basename($_FILES['userfile']['name'].'thumb');
-if (move_uploaded_file($_FILES['userfile']['tmp_name'].'thumb', $uploadfileT)) {
-    echo "File is valid, and was successfully modified.\n";
-} else {
-    echo "did not modify!\n";
-}
+$image = new Imagick(basename($_FILES['userfile']['name']);
+$image->thumbnailImage(100,0);
+echo $image;
 
 #$finurl = $cthumb['ObjectURL'];
 echo 'finurl'.$finurl;
 #processed thumbnail
-$tres = thumb_create( $_FILES['userfile']['name'].'thumb',50,50);
-print 'tress'.$tres;
 
+$uploaddirT = '/tmp/';
+$uploadfileT = $uploaddirT . basename($_FILES['userfile']['name']);
+
+
+
+
+echo '<pre>';
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfileT)) {
+    echo "File is valid,dfgh\n";
+} else {
+    echo "Pggggggg\n";
+}
 
 
 $cthumb = $s3->putObject([
 	'ACL' => 'public-read-write',
 	'Bucket' => $bucket,
-    'Key' => $tres,
-    'SourceFile' => $tres,
+    'Key' => $uploadfileT,
+    'SourceFile' => $uploadfileT,
 
 ]);
 
