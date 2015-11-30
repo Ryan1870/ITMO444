@@ -1,4 +1,6 @@
-
+<html>
+<body>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
 <?php
 // Start the session
 session_start();
@@ -40,11 +42,6 @@ $resSetTopicAttr = $sn->setTopicAttributes([
     'TopicArn' => $AppArn, // REQUIRED
 ]);
 
-#$resultSub = $sn->subscribe([
-  #  'Endpoint' => $email,
- #   'Protocol' => 'email', // REQUIRED
- #   'TopicArn' => $AppArn, // REQUIRED
-#]);
 
 
 
@@ -98,13 +95,7 @@ $result = $s3->putObject([
    'SourceFile' => $uploadfile,
 ]);  
 
-#$image = new Imagick(basename($_FILES['userfile']['name']));
-#$image->thumbnailImage(100,0);
-#echo $image;
 
-#$finurl = $cthumb['ObjectURL'];
-#echo 'finurl'.$finurl;
-#processed thumbnail
 
 
 
@@ -252,70 +243,7 @@ if($num_rows[0] > 0){
 
 
 
-######
 
-/* Prepared statement, stage 1: prepare */
-#if ($stmt = $link->prepare("INSERT INTO comments (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)")) {
- #   //echo "Prepare failed: (" . $link->errno . ") " . $link->error;
-#}
-#ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-#PosterName VARCHAR(32),
-#Title VARCHAR(32),
-#Content VARCHAR(500),
-#uname VARCHAR(20),
-#email VARCHAR(20),
-#phone VARCHAR(20),
-#s3URL VARCHAR(256),
-#jpgfile VARCHAR(256),
-#state TINYINT(3),
-#date TIMESTAMP)";
-
-
-
-#$statement = $link->prepare("INSERT INTO comments (ID, PosterName,Title,Content,uname,phone,s3URL,jpgfile,state,date) VALUES (NULL,?,?,?,?,?,?,?,?,NULL)");
-
-
-
-#$uname = $_POST['username'];
-#$email = $_POST['useremail'];
-#$phone = $_POST['phone'];
-#$s3rawurl = $url; //  $result['ObjectURL']; from above
-#$filename = basename($_FILES['userfile']['name']);
-#$s3finishedurl = "none";
-#$status =0;
-#$issubscribed=0;
-#mysqli_query($link, "INSERT INTO comments (ID, uname,email,phone,rs3URL,fs3URL,jpgfile,state,date) VALUES (NULL, '$uname', '$email', '$phone', '$s3rawurl', '$s3finishedurl', '$filename', '$status', NULL)");
-#$results = $link->insert_id;
-#echo $link->error;
-#echo $results;
-#if( $statement !== FALSE){
-#	$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
-#	$statement->execute();
-#}
-#$statement->bind_param("ssssssssi",$email,$filename,$filename,$filename,$email,$phone,$s3rawurl,$uploadfile,$status);
-#	$statement->execute();
-#$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
-#if (!$stmt->execute()) {
-  #  echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-#}
-#printf("%d Row inserted.\n", $statement->affected_rows);
-/* explicit close recommended */
-#$statement->close();
-#$link->real_query("SELECT * FROM comments");
-#$res = $link->use_result();
-#$query = "SELECT * FROM comments";
-#if($res =$link->query($query))
-##	 printf("Select returned %d rows.\n", $res->num_rows);
-#}
-#echo "Result set order...\n";
-#while ($row = $res->fetch_assoc()) {
- #   echo $row['ID'] . " " . $row['email']. " " . $row['phone'];
-#}
-#$link->close();
-//add code to detect if subscribed to SNS topic 
-//if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
-// add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
-//  Add code to update database to UPDATE status column to 1 (in progress)
 	header('Location: gallery.php'); 
 
 //Dynamically resize images
@@ -360,3 +288,7 @@ function thumb_create($file, $width , $height ) {
 
    
 ?>
+</body>
+
+
+</html>
