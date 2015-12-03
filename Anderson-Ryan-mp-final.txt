@@ -14,3 +14,8 @@ I have 1 repo all the files are located in that repo. Easier to maintain than 3.
 Added logic for sns to submit.php in the messy if else logic, sends to email, easier for testing
 
 I am not a front developer so my css templates just change the background color.
+
+
+You may need to to change the first line of each bash file to work on an ubuntu machine. 
+
+change #!/usr/local/bin/bash to #!/bin/bash
